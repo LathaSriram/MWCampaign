@@ -13,5 +13,6 @@ public interface CampainRepository extends JpaRepository<Campain, Integer> {
 	  Campain findByCampaignName(String campaignName);
 	  
 	  List<Campain> findAll() ;
-  
+	  
+	  Campain save(Campain campain);
 }

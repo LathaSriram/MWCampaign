@@ -2,6 +2,7 @@ package com.app.registration.controller;
 
 import java.util.List;
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.modelmapper.ModelMapper;
@@ -27,12 +28,6 @@ import com.app.registration.model.User;
 import com.app.registration.service.CampainService;
 import com.app.registration.service.UserService;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import io.swagger.annotations.Authorization;
 
 @RestController
 
@@ -46,16 +41,11 @@ public class UserController {
   
   @Autowired
   private ModelMapper modelMapper;
-
+//  http://ec2-3-135-228-77.us-east-2.compute.amazonaws.com:8081/
   @PostMapping("/login")
   @CrossOrigin(origins="http://localhost:4200")
   public TokenResponseDTO login(@RequestBody UserDataDTO user) {
-	System.out.println("USER NAME"+user.getUsername());  
-	System.out.println("PASSWORD "+user.getPassword());
-   
 	String token =  userService.signin(user.getUsername(), user.getPassword());
-	System.out.println("token"+token);
-	
 	TokenResponseDTO tokenDAO = new TokenResponseDTO();
 	tokenDAO.setToken(token);
 	return tokenDAO  ;
@@ -64,7 +54,6 @@ public class UserController {
  
   @PostMapping("/signup")
   @CrossOrigin(origins="http://localhost:4200")
-  
   public String signup(@RequestBody UserDataDTO user) {
 	  System.out.println("singup method");
     return userService.signup(modelMapper.map(user, User.class));
@@ -72,8 +61,6 @@ public class UserController {
 
   
   @GetMapping("/signout")
-  @CrossOrigin(origins="http://localhost:4200")
-  //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
   public void signout(@RequestHeader(value="Authorization") String authorizationHeader) {
 	  String token = authorizationHeader.substring(7);
 	  System.out.println("Authorirization Header @"+token);
@@ -83,7 +70,6 @@ public class UserController {
   
   @PostMapping("/addCampain")
   @CrossOrigin(origins="http://localhost:4200")
-//   @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
   public Campain addCampain(@RequestBody CampainDataDTO campain) {
 	 
 	  System.out.println("details passed:"+campain.getCampaignName());
@@ -92,19 +78,16 @@ public class UserController {
 
   @GetMapping("/listCampain")
   @CrossOrigin(origins="http://localhost:4200")
-  //@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
   public List<Campain> listCampain() {
     return campainService.listCampain();
   }
   
   @GetMapping(value = "/me")
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
   public UserResponseDTO whoami(HttpServletRequest req) {
     return modelMapper.map(userService.whoami(req), UserResponseDTO.class);
   }
 
   @GetMapping("/refresh")
-  @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_CLIENT')")
   public String refresh(HttpServletRequest req) {
     return userService.refresh(req.getRemoteUser());
   }

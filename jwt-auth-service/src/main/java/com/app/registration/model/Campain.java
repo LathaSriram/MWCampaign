@@ -33,7 +33,14 @@ public class Campain {
 //public void setCampainImage(String campainImage) {
 	//this.campainImage = campainImage;
 //}
-
+public Campain(){
+	
+}
+public Campain(String campaignName, String duration,String status){
+	this.campaignName=campaignName;
+	this.duration=duration;
+	this.status=status;
+}
   public Integer getId() {
 		return id;
 	}

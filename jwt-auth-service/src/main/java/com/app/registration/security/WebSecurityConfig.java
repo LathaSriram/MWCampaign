@@ -1,5 +1,7 @@
 package com.app.registration.security;
 
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,6 +14,9 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
@@ -23,7 +28,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Override
   protected void configure(HttpSecurity http) throws Exception {
-
+    
+	
     // Disable CSRF (cross site request forgery)
     http.csrf().disable();
 
@@ -36,7 +42,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
          .antMatchers("/signup").permitAll()//
         // .antMatchers("/logout").permitAll()
        // .antMatchers("/addCampain").permitAll()//
-      //  .antMatchers("/listCampain").permitAll()//
+      // .antMatchers("/listCampain").permitAll()//
        //  .antMatchers("/h2-console/**/**").permitAll()
         // Disallow everything else..
         .anyRequest().authenticated();
@@ -51,6 +57,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     // http.httpBasic();
   }
 
+ 
+  
   @Override
   public void configure(WebSecurity web) throws Exception {
     // Allow swagger to be accessed without authentication
