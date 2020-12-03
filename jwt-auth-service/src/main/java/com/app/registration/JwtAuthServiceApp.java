@@ -60,7 +60,6 @@ public class JwtAuthServiceApp implements CommandLineRunner {
     
 }
   
- 
   @Bean
   public CommandLineRunner init(CampainRepository repository) {
       return args -> {

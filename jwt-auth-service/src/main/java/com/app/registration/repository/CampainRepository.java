@@ -14,5 +14,5 @@ public interface CampainRepository extends JpaRepository<Campain, Integer> {
 	  
 	  List<Campain> findAll() ;
 	  
-	  Campain save(Campain campain);
+	  //Campain save(Campain campain);
 }

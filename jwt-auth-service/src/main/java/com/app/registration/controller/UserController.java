@@ -43,7 +43,7 @@ public class UserController {
   private ModelMapper modelMapper;
 //  http://ec2-3-135-228-77.us-east-2.compute.amazonaws.com:8081/
   @PostMapping("/login")
-  @CrossOrigin(origins="http://localhost:4200")
+  @CrossOrigin(origins="http://ec2-3-135-228-77.us-east-2.compute.amazonaws.com:8081")
   public TokenResponseDTO login(@RequestBody UserDataDTO user) {
 	String token =  userService.signin(user.getUsername(), user.getPassword());
 	TokenResponseDTO tokenDAO = new TokenResponseDTO();
@@ -53,7 +53,7 @@ public class UserController {
 
  
   @PostMapping("/signup")
-  @CrossOrigin(origins="http://localhost:4200")
+ @CrossOrigin(origins="http://ec2-3-135-228-77.us-east-2.compute.amazonaws.com:8081")
   public String signup(@RequestBody UserDataDTO user) {
 	  System.out.println("singup method");
     return userService.signup(modelMapper.map(user, User.class));
@@ -69,7 +69,7 @@ public class UserController {
   }
   
   @PostMapping("/addCampain")
-  @CrossOrigin(origins="http://localhost:4200")
+  @CrossOrigin(origins="http://ec2-3-135-228-77.us-east-2.compute.amazonaws.com:8081")
   public Campain addCampain(@RequestBody CampainDataDTO campain) {
 	 
 	  System.out.println("details passed:"+campain.getCampaignName());
@@ -77,8 +77,9 @@ public class UserController {
   }
 
   @GetMapping("/listCampain")
-  @CrossOrigin(origins="http://localhost:4200")
+ @CrossOrigin(origins="http://ec2-3-135-228-77.us-east-2.compute.amazonaws.com:8081")
   public List<Campain> listCampain() {
+	 // System.out.println("list of campaign "+listCampain());
     return campainService.listCampain();
   }
   
