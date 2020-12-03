@@ -43,7 +43,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         // .antMatchers("/logout").permitAll()
        // .antMatchers("/addCampain").permitAll()//
       // .antMatchers("/listCampain").permitAll()//
-       //  .antMatchers("/h2-console/**/**").permitAll()
+         .antMatchers("/h2-console/**/**").permitAll()
         // Disallow everything else..
         .anyRequest().authenticated();
 

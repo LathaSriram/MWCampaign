@@ -18,7 +18,6 @@ public class CampainService {
 
   public Campain addCampain(Campain campain) {
 	    if (!campainRepository.existsByCampaignName(campain.getCampaignName())) {
-	    	System.out.println("Success");
 	    	campainRepository.save(campain);
 	     	return campainRepository.findByCampaignName(campain.getCampaignName());
 	    

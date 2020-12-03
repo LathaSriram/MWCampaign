@@ -2,7 +2,6 @@ package com.app.registration.controller;
 
 import java.util.List;
 
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.modelmapper.ModelMapper;
@@ -28,69 +27,68 @@ import com.app.registration.model.User;
 import com.app.registration.service.CampainService;
 import com.app.registration.service.UserService;
 
-
 @RestController
 
 public class UserController {
 
-  @Autowired
-  private UserService userService;
+	@Autowired
+	private UserService userService;
 
-  @Autowired
-  private CampainService campainService;
-  
-  @Autowired
-  private ModelMapper modelMapper;
+	@Autowired
+	private CampainService campainService;
+
+	@Autowired
+	private ModelMapper modelMapper;
+
 //  http://ec2-3-135-228-77.us-east-2.compute.amazonaws.com:8081/
-  @PostMapping("/login")
-  @CrossOrigin(origins="http://ec2-3-135-228-77.us-east-2.compute.amazonaws.com:8081")
-  public TokenResponseDTO login(@RequestBody UserDataDTO user) {
-	String token =  userService.signin(user.getUsername(), user.getPassword());
-	TokenResponseDTO tokenDAO = new TokenResponseDTO();
-	tokenDAO.setToken(token);
-	return tokenDAO  ;
-  }
+	@PostMapping("/login")
+	 @CrossOrigin(origins="http://localhost:4200")
+	//@CrossOrigin(origins = "http://ec2-3-135-228-77.us-east-2.compute.amazonaws.com:8081")
+	public TokenResponseDTO login(@RequestBody UserDataDTO user) {
+		String token = userService.signin(user.getUsername(), user.getPassword());
+		TokenResponseDTO tokenDAO = new TokenResponseDTO();
+		tokenDAO.setToken(token);
+		return tokenDAO;
+	}
 
- 
-  @PostMapping("/signup")
- @CrossOrigin(origins="http://ec2-3-135-228-77.us-east-2.compute.amazonaws.com:8081")
-  public String signup(@RequestBody UserDataDTO user) {
-	  System.out.println("singup method");
-    return userService.signup(modelMapper.map(user, User.class));
-  }
+	@PostMapping("/signup")
+	@CrossOrigin(origins="http://localhost:4200")
+	//@CrossOrigin(origins = "http://ec2-3-135-228-77.us-east-2.compute.amazonaws.com:8081")
+	public User signup(@RequestBody UserDataDTO user) {
+		return userService.signup(modelMapper.map(user, User.class));
+	}
 
-  
-  @GetMapping("/signout")
-  public void signout(@RequestHeader(value="Authorization") String authorizationHeader) {
-	  String token = authorizationHeader.substring(7);
-	  System.out.println("Authorirization Header @"+token);
-	  
-	  userService.logout(token);
-  }
-  
-  @PostMapping("/addCampain")
-  @CrossOrigin(origins="http://ec2-3-135-228-77.us-east-2.compute.amazonaws.com:8081")
-  public Campain addCampain(@RequestBody CampainDataDTO campain) {
-	 
-	  System.out.println("details passed:"+campain.getCampaignName());
-    return campainService.addCampain((modelMapper.map(campain, Campain.class)));
-  }
+	@GetMapping("/signout")
+	public void signout(@RequestHeader(value = "Authorization") String authorizationHeader) {
+		String token = authorizationHeader.substring(7);
 
-  @GetMapping("/listCampain")
- @CrossOrigin(origins="http://ec2-3-135-228-77.us-east-2.compute.amazonaws.com:8081")
-  public List<Campain> listCampain() {
-	 // System.out.println("list of campaign "+listCampain());
-    return campainService.listCampain();
-  }
-  
-  @GetMapping(value = "/me")
-  public UserResponseDTO whoami(HttpServletRequest req) {
-    return modelMapper.map(userService.whoami(req), UserResponseDTO.class);
-  }
+		userService.logout(token);
+	}
 
-  @GetMapping("/refresh")
-  public String refresh(HttpServletRequest req) {
-    return userService.refresh(req.getRemoteUser());
-  }
+	@PostMapping("/addCampain")
+	 @CrossOrigin(origins="http://localhost:4200")
+	//@CrossOrigin(origins = "http://ec2-3-135-228-77.us-east-2.compute.amazonaws.com:8081")
+	public Campain addCampain(@RequestBody CampainDataDTO campain) {
+
+		return campainService.addCampain((modelMapper.map(campain, Campain.class)));
+	}
+
+	@GetMapping("/listCampain")
+	 @CrossOrigin(origins="http://localhost:4200")
+	//@CrossOrigin(origins = "http://ec2-3-135-228-77.us-east-2.compute.amazonaws.com:8081")
+	public List<Campain> listCampain() {
+		// System.out.println("list of campaign "+listCampain());
+		return campainService.listCampain();
+	}
+
+	@GetMapping(value = "/me")
+	public UserResponseDTO whoami(HttpServletRequest req) {
+		return modelMapper.map(userService.whoami(req), UserResponseDTO.class);
+	}
+
+	@GetMapping("/refresh")
+	public String refresh(HttpServletRequest req) {
+		return userService.refresh(req.getRemoteUser());
+	}
 
 }

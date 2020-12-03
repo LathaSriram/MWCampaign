@@ -34,7 +34,6 @@ public class UserService {
     try {
       
     	authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-      System.out.println("login");
       return jwtTokenProvider.createToken(username);
     } catch (AuthenticationException e) {
       throw new CustomException("Invalid username/password supplied", HttpStatus.UNPROCESSABLE_ENTITY);
@@ -49,12 +48,11 @@ public class UserService {
 	    }
 	  }
   
-  public String signup(User user) {
+  public User signup(User user) {
     if (!userRepository.existsByUsername(user.getUsername())) {
-      user.setPassword(passwordEncoder.encode(user.getPassword()));
-      userRepository.save(user);
-      System.out.println("response is saved");
-      return jwtTokenProvider.createToken(user.getUsername());
+      user.setPassword(passwordEncoder.encode(user.getPassword())); 
+      //return jwtTokenProvider.createToken(user.getUsername());
+      return userRepository.save(user);
     } else {
     	System.out.println("User name : " +user.getUsername());
       throw new CustomException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
