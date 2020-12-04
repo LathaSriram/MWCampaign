@@ -1,3 +1,12 @@
+Can docwnload Spring backend code from Master Branch and Angular front end code from Angular-Branch1.
+User login : http://localhost:4200
+Credentials (Username : admin Password : admin )
+Can access below APIs
+1) Can signup new user with username, emailid and password
+2) To list down the campaign details from H2 database
+3) To add new campaign list to the database.
+4) To logout
+
 # Demo
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.9.
@@ -24,4 +33,4 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 
 ## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+ To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
