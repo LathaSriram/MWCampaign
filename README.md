@@ -1,5 +1,5 @@
 # MWCampaign
-Can docwnload Spring backend from Master Branch and Angular front end from Angular-Branch1
+Can download Spring backend from Master Branch and Angular front end from Angular-Branch1
 User login : http://localhost:4200
 Credentials (Username : admin Password : admin )
 Can access below APIs
